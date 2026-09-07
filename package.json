@@ -1,0 +1,37 @@
+{
+  "name": "enzyme-onyx-rebalancer",
+  "version": "0.0.1",
+  "description": "Enzyme–Onyx rebalancer contract",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "hardhat build",
+    "test": "hardhat test",
+    "prettier": "prettier --write 'contracts/**/*.sol' 'test/**/*.ts' 'ignition/**/*.ts' 'hardhat.config.ts' 'eslint.config.js'",
+    "solhint": "solhint -w0 'contracts/**/*.sol'",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.6.1"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-mocha-ethers": "^3.0.7",
+    "@solidstate/hardhat-contract-sizer": "^3.0.3",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": ">=10.0.10",
+    "@types/node": "^22.8.5",
+    "chai": "^5.1.2",
+    "eslint": "^9.25.1",
+    "eslint-config-prettier": "^10.1.2",
+    "ethers": "^6.14.0",
+    "hardhat": "^3.14.0",
+    "mocha": "^11.0.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-solidity": "^1.0.0",
+    "solhint": "^5.0.5",
+    "solhint-plugin-prettier": "^0.1.0",
+    "typescript": "~5.8.0",
+    "typescript-eslint": "^8.66.0"
+  }
+}

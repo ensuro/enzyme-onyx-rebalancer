@@ -1,0 +1,7 @@
+artifacts
+cache
+node_modules
+contracts/dependencies/
+dist
+typechain-types
+coverage
