@@ -16,10 +16,10 @@ contract OnyxRebalancer is AccessControl {
   IERC20 public immutable eToken;
   IOnyxVault public immutable onyxVault;
 
-  constructor(address usdc_, address eToken_, address onyxVault_, address admin_, address[] memory rebalancers_) {
-    usdc = IERC20(usdc_);
-    eToken = IERC20(eToken_);
-    onyxVault = IOnyxVault(onyxVault_);
+  constructor(IERC20 usdc_, IERC20 eToken_, IOnyxVault onyxVault_, address admin_, address[] memory rebalancers_) {
+    usdc = usdc_;
+    eToken = eToken_;
+    onyxVault = onyxVault_;
 
     _grantRole(DEFAULT_ADMIN_ROLE, admin_);
     for (uint256 i = 0; i < rebalancers_.length; ++i) {
