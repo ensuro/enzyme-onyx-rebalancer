@@ -1,6 +1,6 @@
 import hardhatToolboxMochaEthers from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
 import HardhatContractSizer from "@solidstate/hardhat-contract-sizer";
-import { defineConfig } from "hardhat/config";
+import { configVariable, defineConfig } from "hardhat/config";
 
 export default defineConfig({
   plugins: [hardhatToolboxMochaEthers, HardhatContractSizer],
@@ -16,6 +16,19 @@ export default defineConfig({
     npmFilesToBuild: [
       // List contracts from npm packages that need to be built here (e.g. proxies).
     ],
+  },
+  networks: {
+    mainnet: {
+      type: "http",
+      chainType: "l1",
+      url: configVariable("MAINNET_RPC_URL"),
+      accounts: [configVariable("MAINNET_PRIVATE_KEY")],
+    },
+  },
+  verify: {
+    etherscan: {
+      apiKey: configVariable("ETHERSCAN_API_KEY"),
+    },
   },
   contractSizer: {
     alphaSort: true,
