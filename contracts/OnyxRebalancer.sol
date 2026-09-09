@@ -7,13 +7,22 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 
 import {IOnyxVault} from "./interfaces/IOnyxVault.sol";
 
+/**
+ * @title OnyxRebalancer
+ * @author Ensuro
+ * @notice Lets REBALANCER_ROLE accounts rebalance the USDC/eToken composition held by an Onyx vault.
+ */
 contract OnyxRebalancer is AccessControl {
   using SafeERC20 for IERC20;
 
+  /** @notice Role required to trigger a rebalance. */
   bytes32 public constant REBALANCER_ROLE = keccak256("REBALANCER_ROLE");
 
+  /** @notice The USDC token. */
   IERC20 public immutable usdc;
+  /** @notice The Onyx eToken (rebasing, pegged 1:1 to USDC). */
   IERC20 public immutable eToken;
+  /** @notice The Onyx vault holding USDC and eToken. */
   IOnyxVault public immutable onyxVault;
 
   constructor(IERC20 usdc_, IERC20 eToken_, IOnyxVault onyxVault_, address admin_, address[] memory rebalancers_) {
@@ -42,17 +51,19 @@ contract OnyxRebalancer is AccessControl {
     _;
   }
 
-  // Sends `amount` eToken from the caller to the onyxVault, and withdraws the
-  // equivalent amount of USDC back to the caller. The vault ends up with less
-  // USDC and more eToken.
+  /**
+   * @notice Sends `amount` eToken from the caller to the vault and withdraws the equivalent amount of USDC back to the caller.
+   * @param amount The amount of eToken to send (and USDC to receive).
+   */
   function rebalanceUSDCToEToken(uint256 amount) external onlyRoleOrOpenRole(REBALANCER_ROLE) {
     eToken.safeTransferFrom(msg.sender, address(onyxVault), amount);
     onyxVault.withdrawAssetTo(address(usdc), msg.sender, amount);
   }
 
-  // Sends `amount` USDC from the caller to the onyxVault, and withdraws the
-  // equivalent amount of eToken back to the caller. The vault ends up with less
-  // eToken and more USDC.
+  /**
+   * @notice Sends `amount` USDC from the caller to the vault and withdraws the equivalent amount of eToken back to the caller.
+   * @param amount The amount of USDC to send (and eToken to receive).
+   */
   function rebalanceETokenToUSDC(uint256 amount) external onlyRoleOrOpenRole(REBALANCER_ROLE) {
     usdc.safeTransferFrom(msg.sender, address(onyxVault), amount);
     onyxVault.withdrawAssetTo(address(eToken), msg.sender, amount);
