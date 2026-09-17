@@ -24,3 +24,6 @@ node_modules
 
 # solc compiler artifact
 soljson*.js
+
+# Ignition deployments
+ignition/deployments/

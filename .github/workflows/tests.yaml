@@ -1,0 +1,38 @@
+name: Tests
+on: [push, pull_request]
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npx hardhat build
+
+      - name: Solhint
+        run: npm run solhint
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npx hardhat test
+
+      - name: Fork tests
+        run: npx hardhat test test/OnyxRedeemer.fork.ts --network mainnetFork
+        env:
+          MAINNET_RPC_URL: ${{ secrets.MAINNET_RPC_URL }}
