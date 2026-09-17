@@ -15,9 +15,11 @@ describe("OnyxRebalancer", function () {
       [rebalancer.address],
     ]);
 
-    expect(await contract.REBALANCER_ROLE()).to.equal(ethers.id("REBALANCER_ROLE"));
+    expect(await contract.USDC_TO_ETOKEN_ROLE()).to.equal(ethers.id("USDC_TO_ETOKEN_ROLE"));
+    expect(await contract.ETOKEN_TO_USDC_ROLE()).to.equal(ethers.id("ETOKEN_TO_USDC_ROLE"));
     expect(await contract.hasRole(await contract.DEFAULT_ADMIN_ROLE(), admin.address)).to.equal(true);
     expect(await contract.hasRole(await contract.DEFAULT_ADMIN_ROLE(), deployer.address)).to.equal(false);
-    expect(await contract.hasRole(await contract.REBALANCER_ROLE(), rebalancer.address)).to.equal(true);
+    expect(await contract.hasRole(await contract.USDC_TO_ETOKEN_ROLE(), rebalancer.address)).to.equal(true);
+    expect(await contract.hasRole(await contract.ETOKEN_TO_USDC_ROLE(), rebalancer.address)).to.equal(true);
   });
 });
