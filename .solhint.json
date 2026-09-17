@@ -11,8 +11,7 @@
     "not-rely-on-time": "off",
     "max-states-count": "off",
     "gas-custom-errors": "off",
-    "immutable-vars-naming": "off",
-    "use-natspec": "off"
+    "immutable-vars-naming": "off"
   },
   "plugins": ["prettier"]
 }

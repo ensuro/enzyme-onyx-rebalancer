@@ -24,6 +24,15 @@ export default defineConfig({
       url: configVariable("MAINNET_RPC_URL"),
       accounts: [configVariable("MAINNET_PRIVATE_KEY")],
     },
+    mainnetFork: {
+      type: "edr-simulated",
+      chainType: "l1",
+      forking: {
+        enabled: true,
+        url: configVariable("MAINNET_RPC_URL"),
+        blockNumber: 25934000,
+      },
+    },
   },
   verify: {
     etherscan: {
